@@ -2,7 +2,7 @@
 # Frontend VPC -> Webserver MIG
 # ------------------------------------------------------------------------------  
 module "nprod-frontend-vpc" {
-  source = "./modules/google-vpc-network"
+  source = "git::https://github.com/joeriverhavert/terraform-modules.git//google-cloud/google-vpc-network"
 
   name        = "nprod-frontend"
   description = "Non-production frontend Virtual Private Network."
@@ -49,7 +49,7 @@ module "nprod-frontend-vpc" {
 # Backend VPC -> Cloud SQL
 # ------------------------------------------------------------------------------ 
 module "nprod-backend-vpc" {
-  source = "./modules/google-vpc-network"
+  source = "git::https://github.com/joeriverhavert/terraform-modules.git//google-cloud/google-vpc-network"
 
   name        = "nprod-backend"
   description = "Non-production backend Virtual Private Network."
@@ -85,7 +85,7 @@ module "nprod-backend-vpc" {
 # VPC Peering
 # ------------------------------------------------------------------------------ 
 module "vpc-peering" {
-  source = "./modules/google-vpc-peering"
+  source = "git::https://github.com/joeriverhavert/terraform-modules.git//google-cloud/google-vpc-peering"
 
   name         = "peering-nprod-frontend-and-backend"
   network      = module.nprod-frontend-vpc.network.self_link
@@ -96,7 +96,7 @@ module "vpc-peering" {
 # Managed Instance Group
 # ------------------------------------------------------------------------------
 module "vpc-managed-instance-group" {
-  source = "./modules/google-managed-instance-group"
+  source = "git::https://github.com/joeriverhavert/terraform-modules.git//google-cloud/google-managed-instance-group"
 
   name        = "nprod-frontend-http-mig"
   description = "Non-production frontend http managed instance group"
@@ -137,7 +137,7 @@ module "vpc-managed-instance-group" {
 # Load Balancer
 # ------------------------------------------------------------------------------
 module "vpc-external-loadbalancer" {
-  source = "./modules/google-external-http-loadbalanacer"
+  source = "git::https://github.com/joeriverhavert/terraform-modules.git//google-cloud/google-external-http-loadbalanacer"
 
   name = "nprod-frontend-lb"
 
